@@ -1,5 +1,4 @@
-
-const mongoose = require('../db/connection');
+const mongoose = require('../db/connection')
 
 const ArtItemSchema = new mongoose.Schema({
 
