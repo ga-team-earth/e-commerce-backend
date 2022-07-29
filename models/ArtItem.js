@@ -3,7 +3,7 @@ const mongoose = require('../db/connection');
 
 const ArtItemSchema = new mongoose.Schema({
 
-	section: String,
+	category: String,
 	title: String,
 	price: Number,
 	image: String
