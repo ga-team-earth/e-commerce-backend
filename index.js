@@ -27,6 +27,9 @@ app.get('/', (req, res) => {
 const ArtItemController = require('./controllers/ArtItemController');
 app.use('/api/art/', ArtItemController);
 
+const CartController = require('./controllers/CartController');
+app.use('/api/cart', CartController);
+
 const usersController = require('./controllers/usersController')
 app.use('/api/users', usersController)
 
