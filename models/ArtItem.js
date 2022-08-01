@@ -2,12 +2,15 @@ const mongoose = require('../db/connection')
 
 const ArtItemSchema = new mongoose.Schema({
 
-	category: String,
+	id: Number,
+	section: String,
 	title: String,
-	price: Number,
-	image: String
+	description: String,
+	imageUrl: String,
+	price: Number
 
-});
+	}
+);
 
 const ArtItem = mongoose.model('ArtItem', ArtItemSchema);
 
