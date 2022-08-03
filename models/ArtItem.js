@@ -4,11 +4,11 @@ const ArtItemSchema = new mongoose.Schema({
 
 	title: String,
 	items: [{
-		id: Number,
+		productId: Number,
 		name: String,
 		imageUrl: String,
 		price: Number,
-	}]
+}]
 
 });
 
