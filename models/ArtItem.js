@@ -2,6 +2,7 @@ const mongoose = require('../db/connection')
 
 const ArtItemSchema = new mongoose.Schema({
 
+
 	title: String,
 	items: [{
 		productId: Number,
@@ -10,7 +11,9 @@ const ArtItemSchema = new mongoose.Schema({
 		price: Number,
 }]
 
-});
+
+	}
+);
 
 const ArtItem = mongoose.model('ArtItem', ArtItemSchema);
 
