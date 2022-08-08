@@ -1,17 +1,14 @@
 const express = require('express');
-const { populate } = require('../models/ArtItem');
 const router = express.Router();
 const Cart = require('../models/Cart');
 
-// Index: GET all the Cart items
+// Show: Get ALL Cart items
 router.get('/', async (req, res, next) => {
 	try {
-		// 1. Get all of the CartItem from the DB
-		const Cart = await Cart.find({});
-		// 2. Send them back to the client as JSON
-		res.json(Cart);
+		const cartitems = await Cart.find({});
+		res.json(cartitems);
+		console.log(cartitems)
 	} catch (err) {
-		// if there's an error, pass it on!
 		next(err);
 	}
 });
@@ -19,12 +16,9 @@ router.get('/', async (req, res, next) => {
 // Show: Get a Cart item by ID
 router.get('/:id', async (req, res, next) => {
 	try {
-		// 1. Find the ArtItem by its unique ID
-		const cart = await Cart.findById(req.params.id);
-		// 2. Send it back to the client as JSON
-		res.json(cart);
+		const cartitem = await Cart.findById(req.params.id);
+		res.json(cartitem);
 	} catch (err) {
-		// if there's an error, pass it on!
 		next(err);
 	}
 });
@@ -33,24 +27,24 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
 	try {
 		// 1. Use the data in the req body to create a new ArtItem
-		const cart = await ArtItem.create(req.body);
+		const cart = await Cart.create(req.body);
 		// 2. If the create is successful, send back the record that was inserted, specifying 201 status for Created
 		res.status(201).json(cart);
 	} catch (err) {
-		// 3. If there was an error, pass it on!
 		next(err);
 	}
 });
 
+// Update Cart Item by ID
 router.put('/:id', async (req, res, next) => {
     try {
-        const updatedCart = await Cart.findByIdAndUpdate(
+        const updatedCartItem = await Cart.findByIdAndUpdate(
             req.params.id,req.body, 
         {
             new: true}
         )
-        if(updatedCart){
-            res.json(updatedCart)
+        if(updatedCartItem){
+            res.json(updatedCartItem)
         } else {
             res.sendStatus(404)
         }
@@ -59,14 +53,23 @@ router.put('/:id', async (req, res, next) => {
     }
 })
 
+// Route for deleting cart item by ID
 router.delete('/:id', async(req, res, next) => {
     try {
-        const deletedCart = await Cart.findByIdAndDelete(req.params.id)
-        res.json(deletedCart) 
+        const deletedCartItem = await Cart.findByIdAndDelete(req.params.id)
+        res.json(deletedCartItem) 
     } catch(err) {
         next(err)
     }
 })
 
-// Export this router object so that it is accessible when we require the file elsewhere
+// Route for deleting ALL
+router.delete('/', async(req, res, next) => {
+	try {
+		Cart.deleteMany({})		
+	} catch(err) {
+		next(err)
+	}
+})
+
 module.exports = router;
