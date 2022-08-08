@@ -68,5 +68,7 @@ router.delete('/:id', async(req, res, next) => {
     }
 })
 
+// Route for deleting ALL
+
 // Export this router object so that it is accessible when we require the file elsewhere
 module.exports = router;
