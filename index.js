@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 // Redirect
 
 app.get('/', (req, res) => {
-	res.redirect('/api/art');
+	res.redirect('/art');
 });
 
 // app.get('/cart', (req, res) => {
