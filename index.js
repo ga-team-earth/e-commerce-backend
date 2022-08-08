@@ -18,20 +18,27 @@ app.use(express.urlencoded({ extended: true }));
 //=============================================================================
 // Redirect
 
-app.get('/', (req, res) => {
-	res.redirect('/api/art');
-});
+// app.get('/', (req, res) => {
+// 	res.redirect('/api/art');
+// });
+
+// app.get('/cart', (req, res) => {
+//     res.redirect('/api/cart')
+// })
 
 /* START CONTROLLERS HERE */
 
+// const ArtItemController = require('./controllers/ArtItemController');
+// app.use('/api/art/', ArtItemController);
+
 const ArtItemController = require('./controllers/ArtItemController');
-app.use('/api/art/', ArtItemController);
+app.use('/art', ArtItemController);
 
 const CartController = require('./controllers/CartController');
-app.use('/api/cart', CartController);
+app.use('/cart', CartController);
 
-const usersController = require('./controllers/usersController')
-app.use('/api/users', usersController)
+// const usersController = require('./controllers/usersController')
+// app.use('/api/users', usersController)
 
 /* END CONTROLLERS HERE */
 
