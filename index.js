@@ -18,9 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 //=============================================================================
 // Redirect
 
-// app.get('/', (req, res) => {
-// 	res.redirect('/api/art');
-// });
+app.get('/', (req, res) => {
+	res.redirect('/api/art');
+});
 
 // app.get('/cart', (req, res) => {
 //     res.redirect('/api/cart')
