@@ -63,7 +63,8 @@ router.delete('/:id', async(req, res, next) => {
     }
 })
 
-// Route for deleting ALL
+// Route for deleting All 
+
 router.delete('/', async(req, res, next) => {
 	try {
 		Cart.deleteMany({})		
