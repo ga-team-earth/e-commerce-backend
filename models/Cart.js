@@ -1,7 +1,21 @@
 const mongoose = require('../db/connection')
 
-const CartSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
+	products: [{
+	productId: {
+		type: mongoose.Types.ObjectId,
+		ref: 'artItem',
+		required: true,
+	  },
+	  quantity: {
+		type: String,
+		required: true,
+	  },
+	},
+	],
+	cartTotal: Number,
 
+<<<<<<< HEAD
 
 	title: String,
 	items: [{
@@ -13,7 +27,15 @@ const CartSchema = new mongoose.Schema({
 }]
 	}
 );
+=======
+>>>>>>> 6fd720c (alternate backend, not working)
 
 const Cart = mongoose.model('CartItem', CartSchema);
 
+<<<<<<< HEAD
 module.exports = Cart;
+=======
+const Cart = mongoose.model('cart', cartSchema);
+
+module.exports = Cart;
+>>>>>>> 6fd720c (alternate backend, not working)

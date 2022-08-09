@@ -31,11 +31,11 @@ app.get('/', (req, res) => {
 // const ArtItemController = require('./controllers/ArtItemController');
 // app.use('/api/art/', ArtItemController);
 
-const ArtItemController = require('./controllers/ArtItemController');
-app.use('/art', ArtItemController);
+const artItemRoutes = require('./routes/artItemRoutes');
+app.use('/art', artItemRoutes);
 
-const CartController = require('./controllers/CartController');
-app.use('/cart', CartController);
+const cartRoutes = require('./routes/cartRoutes');
+app.use('/cart', cartRoutes);
 
 // const usersController = require('./controllers/usersController')
 // app.use('/api/users', usersController)
