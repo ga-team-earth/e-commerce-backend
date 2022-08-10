@@ -10,8 +10,6 @@ const ArtItemSchema = new mongoose.Schema({
 		imageUrl: String,
 		price: Number,
 }]
-
-
 	}
 );
 
