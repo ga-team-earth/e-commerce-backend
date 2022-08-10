@@ -22,16 +22,6 @@ router.get('/:id', async (req, res, next) => {
 	}
 });
 
-router.get('/:id/items/:quantity', async (req, res, next) => {
-	console.log(req.params)
-	try {
-		const cartitem = await Cart.findById(req.params.id);
-		res.json(cartitem);
-	} catch (err) {
-		next(err);
-	}
-});
-
 // Create: POST a Cart item
 router.post('/', async (req, res, next) => {
 	try {
@@ -42,28 +32,9 @@ router.post('/', async (req, res, next) => {
 	}
 });
 
-// Update Cart Item by ID
-// router.put('/:id', async (req, res, next) => {
-//     try {
-//         const updatedCartItem = await Cart.findByIdAndUpdate(
-//             req.params.id,req.body, 
-//         {
-//             new: true}
-//         )
-//         if(updatedCartItem){
-//             res.json(updatedCartItem)
-//         } else {
-//             res.sendStatus(404)
-//         }
-//     } catch(err){
-//         next(err)
-//     }
-// })
-
 // Update Cart Item
 router.patch('/:id', async (req, res, next) => {
     try {
-		console.log(req.body)
         const updatedCartItem = await Cart.findByIdAndUpdate(
             req.params.id,
 			req.body, 
