@@ -35,10 +35,7 @@ router.get('/:id/items/:quantity', async (req, res, next) => {
 // Create: POST a Cart item
 router.post('/', async (req, res, next) => {
 	try {
-		// 1. Use the data in the req body to create a new ArtItem
 		const cart = await Cart.create(req.body);
-		// const newCart = await Cart.find({})
-		// 2. If the create is successful, send back the record that was inserted, specifying 201 status for Created
 		res.status(201).json(cart)
 	} catch (err) {
 		next(err);
@@ -63,11 +60,9 @@ router.post('/', async (req, res, next) => {
 //     }
 // })
 
+// Update Cart Item
 router.patch('/:id', async (req, res, next) => {
     try {
-		// console.log(req.params)
-		// console.log(req.params.quantity)
-		// console.log(req.params.id)
 		console.log(req.body)
         const updatedCartItem = await Cart.findByIdAndUpdate(
             req.params.id,
@@ -96,7 +91,7 @@ router.delete('/:id', async(req, res, next) => {
     }
 })
 
-// Route for deleting ALL
+// Route for deleting Entire Cart
 router.delete('/', async(req, res, next) => {
 	try {
 		await Cart.deleteMany({})
