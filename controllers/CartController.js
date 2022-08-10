@@ -1,47 +1,47 @@
 const express = require('express');
-// const router = express.Router();
+const router = express.Router();
 const Cart = require('../models/Cart');
 
 // Show: Get ALL Cart items
-
-const getCartItems = async (req, res) => {
+router.get('/', async (req, res, next) => {
 	try {
-	  const cartItem = await Cart.populate('productId')
-	  // console.log(cartItem)
-	  res.status(200).send({status: 'ok', cartItem})
+		const cartitems = await Cart.find({});
+		res.json(cartitems);
 	} catch (err) {
-	  console.log(err)
-	  sendResponseError(500, `Error ${err}`, res)
+		next(err);
 	}
-  }
+});
 
 // Show: Get a Cart item by ID
-// router.get('/:id', async (req, res, next) => {
-// 	try {
-// 		const cartitem = await Cart.findById(req.params.id);
-// 		res.json(cartitem);
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// });
+router.get('/:id', async (req, res, next) => {
+	try {
+		const cartitem = await Cart.findById(req.params.id);
+		res.json(cartitem);
+	} catch (err) {
+		next(err);
+	}
+});
+
+router.get('/:id/items/:quantity', async (req, res, next) => {
+	console.log(req.params)
+	try {
+		const cartitem = await Cart.findById(req.params.id);
+		res.json(cartitem);
+	} catch (err) {
+		next(err);
+	}
+});
 
 // Create: POST a Cart item
-
-const addItemToCart = async (req, res) => {
-	const {productId, quantity} = req.body
+router.post('/', async (req, res, next) => {
 	try {
-	  const cartItem = await Cart.findOneAndUpdate(
-		{productId},
-		{productId, quantity},
-		{upsert: true},
-	  )
-  
-	  res.status(201).send({status: 'ok', cartItem})
+		const cart = await Cart.create(req.body);
+		res.status(201).json(cart)
 	} catch (err) {
-	  console.log(err)
-	  sendResponseError(500, `Error ${err}`, res)
+		next(err);
 	}
-  }
+});
+
 // Update Cart Item by ID
 // router.put('/:id', async (req, res, next) => {
 //     try {
@@ -60,28 +60,46 @@ const addItemToCart = async (req, res) => {
 //     }
 // })
 
+// Update Cart Item
+router.patch('/:id', async (req, res, next) => {
+    try {
+		console.log(req.body)
+        const updatedCartItem = await Cart.findByIdAndUpdate(
+            req.params.id,
+			req.body, 
+    		{
+            new: true
+			}
+        )
+        if(updatedCartItem){
+            res.json(updatedCartItem)
+        } else {
+            res.sendStatus(404)
+        }
+    } catch(err){
+        next(err)
+    }
+})
+
 // Route for deleting cart item by ID
-const deleteItemInCart = async (req, res) => {
+router.delete('/:id', async(req, res, next) => {
+    try {
+        const deletedCartItem = await Cart.findByIdAndDelete(req.params.id)
+        res.json(deletedCartItem) 
+    } catch(err) {
+        next(err)
+    }
+})
+
+// Route for deleting Entire Cart
+router.delete('/', async(req, res, next) => {
 	try {
-	  await Cart.findByIdAndRemove(req.params.id)
-	  res.status(200).send({status: 'ok'})
-	} catch (err) {
-	  console.log(err)
-	  sendResponseError(500, `Error ${err}`, res)
+		await Cart.deleteMany({})
+		const cartitem = await Cart.find({});
+		res.json(cartitem);	
+	} catch(err) {
+		next(err)
 	}
-  }
+})
 
-// Route for deleting ALL
-// router.delete('/', async(req, res, next) => {
-// 	try {
-// 		Cart.deleteMany({})		
-// 	} catch(err) {
-// 		next(err)
-// 	}
-// })
-
-<<<<<<< HEAD
 module.exports = router;
-=======
-module.exports = {getCartItems, addItemToCart, deleteItemInCart};
->>>>>>> 6fd720c (alternate backend, not working)
