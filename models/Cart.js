@@ -2,13 +2,19 @@ const mongoose = require('../db/connection')
 
 const CartSchema = new mongoose.Schema({
 
-	category: String,
+// Maybe turn "items" into schema
 	title: String,
-	price: Number,
-	image: String
+	// name: String,
+	items: {
+		// productId: Number,
+		name: String,
+		// imageUrl: String,
+		price: Number,
+		quantity: Number,
+}
+	}
+);
 
-});
-
-const Cart = mongoose.model('CartSchema', CartSchema);
+const Cart = mongoose.model('CartItem', CartSchema);
 
 module.exports = Cart;
